@@ -39,11 +39,6 @@ jobs:
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install numpy PyQt6==6.7.1 sip astropy h5py tomli
 
-    - name: Verify Qt6, PyQt6, and SIP installation
-      run: |
-        python -c "import PyQt6; print('PyQt6 version:', PyQt6.__version__)"
-        python -c "import sip; print('SIP version:', sip.__version__)"
-
     - name: Build extensions
       run: |
         python setup.py build_ext --inplace
