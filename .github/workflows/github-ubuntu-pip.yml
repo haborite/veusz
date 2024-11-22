@@ -37,7 +37,6 @@ jobs:
           qt6-qmllint-plugins \
           qt6-qmltooling-plugins \
           qt6-qpa-plugins \
-          qt6-translations-l10n \
           qt6-wayland \          
           libxcb1-dev \
           libx11-dev \
