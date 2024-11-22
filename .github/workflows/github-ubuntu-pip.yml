@@ -11,10 +11,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.10
+    - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.12'
 
     - name: Upgrade pip
       run : |
@@ -30,9 +30,22 @@ jobs:
           qt6-base-dev \
           qt6-declarative-dev \
           qt6-webengine-dev \
+          qt6-base-dev-tools \
+          qt6-declarative-dev-tools \
+          qt6-gtk-platformtheme \
+          qt6-image-formats-plugin-pdf \
+          qt6-qmllint-plugins \
+          qt6-qmltooling-plugins \
+          qt6-qpa-plugins \
+          qt6-translations-l10n \
+          qt6-wayland \          
           libxcb1-dev \
           libx11-dev \
           libxext-dev
+          
+    - name: Check Qt6 modules
+      run: |
+         dpkg -l | grep qt6
 
     - name: Install Python dependencies
       run: |
