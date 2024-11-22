@@ -7,26 +7,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
+
     - name: Upgrade pip
       run : |
         python -V
         python -m pip install --upgrade pip
-    - name: Install Qt6
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: 'true'
-        cache-key-prefix: 'qt-ubuntu-v2'
-        version: '6.7.1'
-        setup-python: false
+      
+    - name: Install system dependencies for Qt6
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          build-essential \
+          qmake \
+          qt6-base-dev \
+          qt6-declarative-dev \
+          qt6-webengine-dev \
+          libxcb1-dev \
+          libx11-dev \
+          libxext-dev
+
     - name: Install Python dependencies
       run: |
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install numpy PyQt6==6.7.1 sip astropy h5py tomli
+
+    - name: Verify Qt6, PyQt6, and SIP installation
+      run: |
+        python -c "import PyQt6; print('PyQt6 version:', PyQt6.__version__)"
+        python -c "import sip; print('SIP version:', sip.__version__)"
+
     - name: Build extensions
       run: |
         python setup.py build_ext --inplace
