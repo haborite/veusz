@@ -4,16 +4,12 @@ on: workflow_dispatch
 
 jobs:
   build:
-
-    runs-on: windows-latest
-
+    runs-on: windows-2022
     steps:
     
-    - uses: actions/checkout@v4
-    
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-    
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
@@ -24,6 +20,9 @@ jobs:
         python -V
         python -m pip install --upgrade pip
     
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+      
     - name: Install Qt6
       uses: jurplel/install-qt-action@v4
       with:
@@ -35,13 +34,11 @@ jobs:
     
     - name: Install Python dependencies
       run: |
-        # pip install -r requirements.txt
-        pip install numpy PyQt6 sip astropy h5py tomli
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip list
     
     - name: Build
       run: |
-        set QMAKE_CXXFLAGS=/Zc:__cplusplus
         python setup.py build_ext --inplace
     
     - name: Run tests
