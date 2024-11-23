@@ -27,15 +27,17 @@ jobs:
     - name: Install Qt6
       uses: jurplel/install-qt-action@v4
       with:
-        arch: 'win64_msvc2019_64'
+        arch: 'win64_msvc2022_64'
         cache: 'true'
         cache-key-prefix: 'install-qt-action'
-        version: '6.7.1'
+        version: 'latest'
         setup-python: false
     
     - name: Install Python dependencies
       run: |
-        pip install -r requirements.txt
+        # pip install -r requirements.txt
+        pip install numpy PyQt6 sip astropy h5py tomli
+        pip list
     
     - name: Build
       run: |
