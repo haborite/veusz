@@ -26,10 +26,10 @@ jobs:
     - name: Install Qt6
       uses: jurplel/install-qt-action@v4
       with:
-        arch: 'win64_msvc2017_64'
+        arch: 'win64_msvc2022_64'
         cache: 'true'
         cache-key-prefix: 'install-qt-action'
-        version: '6.4.*'
+        version: '6.8.*'
         setup-python: false
     
     - name: Install Python dependencies
