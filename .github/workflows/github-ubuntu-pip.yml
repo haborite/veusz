@@ -39,7 +39,6 @@ jobs:
     - name: Build extensions
       run: |
         python setup.py build_ext --inplace
-        python tests/runselftest.py
   
     - name: Run tests
       env:
