@@ -27,23 +27,20 @@ jobs:
         sudo apt install -y \
           build-essential qmake6 \
           libxcb1-dev libx11-dev libxext-dev \
-
-    - name: Check Qt6 modules
-      run: |
-         dpkg -l | grep qt6
+          qt6-base-dev qt6-declarative-dev qt6-webengine-dev
+        dpkg -l | grep qt6
 
     - name: Install Python dependencies
       run: |
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install numpy PyQt6 sip astropy h5py tomli
-    
-    - name: Check Python modules
-      run: |
         pip list
 
     - name: Build extensions
       run: |
         python setup.py build_ext --inplace
+        python tests/runselftest.py
+  
     - name: Run tests
       env:
         LD_LIBRARY_PATH: ${{ env.QT_ROOT_DIR }}/lib:${{ env.LD_LIBRARY_PATH }}
