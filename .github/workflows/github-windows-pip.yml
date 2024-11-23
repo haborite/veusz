@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   build:
 
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
     
@@ -27,6 +27,7 @@ jobs:
     - name: Install Qt6
       uses: jurplel/install-qt-action@v4
       with:
+        arch: 'win64_msvc2019_64'
         cache: 'true'
         cache-key-prefix: 'install-qt-action'
         version: '6.7.1'
