@@ -39,7 +39,7 @@ jobs:
     
     - name: Build
       run: |
-        set QMAKE_CXXFLAGS+=/Zc:__cplusplus
+        set QMAKE_CXXFLAGS=/Zc:__cplusplus
         python setup.py build_ext --inplace
     
     - name: Run tests
