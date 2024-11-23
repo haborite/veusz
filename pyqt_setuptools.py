@@ -183,13 +183,7 @@ class sip_build_ext(build_ext):
             if self.compiler.compiler_type == 'unix':
                 extension.extra_compile_args.append('-std=c++17')
             elif self.compiler.compiler_type == 'msvc':
-                extension.extra_compile_args.append('-Zc:__cplusplus')
-                extension.extra_compile_args.append('/permissive-')
-                extension.extra_compile_args.append('/Zc:rvalueCast')
-                extension.extra_compile_args.append('/Zc:inline')
-                extension.extra_compile_args.append('/Zc:strictStrings')
-                extension.extra_compile_args.append('/Zc:throwingNew')
-                extension.extra_compile_args.append('/Zc:externConstexpr')
+                extension.extra_compile_args.insert(0, '/Zc:__cplusplus')
 
         depends = extension.depends
 
