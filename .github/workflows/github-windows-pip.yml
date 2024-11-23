@@ -30,7 +30,7 @@ jobs:
         arch: 'win64_msvc2022_64'
         cache: 'true'
         cache-key-prefix: 'install-qt-action'
-        version: 'latest'
+        version: '6.8.*'
         setup-python: false
     
     - name: Install Python dependencies
