@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: ubuntu-24
+    runs-on: ubuntu-24.04
 
     steps:
     
@@ -32,9 +32,10 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install numpy PyQt6 sip astropy h5py tomli
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip list
+        # pip install numpy PyQt6 sip astropy h5py tomli
+        # pip list
 
     - name: Build extensions
       run: |
