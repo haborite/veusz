@@ -13,6 +13,8 @@ jobs:
     
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
+      with:
+        vs-version: '[17.9)'
     
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
