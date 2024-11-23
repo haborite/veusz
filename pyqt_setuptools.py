@@ -183,7 +183,8 @@ class sip_build_ext(build_ext):
             if self.compiler.compiler_type == 'unix':
                 extension.extra_compile_args.append('-std=c++17')
             elif self.compiler.compiler_type == 'msvc':
-                extension.extra_compile_args.append('QMAKE_CXXFLAGS+=Zc:__cplusplus')
+                extension.extra_compile_args.append('/Zc:__cplusplus')
+                extension.extra_compile_args.append('/std:c++17')
 
         depends = extension.depends
 
