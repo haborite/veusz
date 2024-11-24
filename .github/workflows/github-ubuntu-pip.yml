@@ -25,11 +25,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install aqtinstall
 
-    - name: Install Qt 6.7.3
+    - name: Install Qt 6.6.1
       run: |
         aqt install-qt linux desktop 6.7.3 linux_gcc_64
-        export PATH=$(pwd)/6.7.3/gcc_64/bin:$PATH
-        export QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
+        export PATH=$(pwd)/6.6.1/gcc_64/bin:$PATH
+        export QMAKE_EXE=$(pwd)/6.6.1/gcc_64/bin/qmake
         qmake --version
         
     - name: Install Python dependencies
@@ -44,8 +44,8 @@ jobs:
 
     - name: Build extensions
       run: |
-        export PATH=$(pwd)/6.7.3/gcc_64/bin:$PATH
-        export QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
+        export PATH=$(pwd)/6.6.1/gcc_64/bin:$PATH
+        export QMAKE_EXE=$(pwd)/6.6.1/gcc_64/bin/qmake
         qmake --version
         python setup.py build_ext --inplace
   
