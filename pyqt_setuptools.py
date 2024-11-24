@@ -276,7 +276,7 @@ protected-is-public=false
         build_cmd = shutil.which('sip-build')
         if not build_cmd:
             raise RuntimeError('Could not find sip-build command on PATH')
-        subprocess.check_call([build_cmd, '--no-compile'], cwd=sip_builddir)
+        subprocess.check_call([build_cmd], cwd=sip_builddir)
 
         # put sip header in correct location
         shutil.copyfile(
