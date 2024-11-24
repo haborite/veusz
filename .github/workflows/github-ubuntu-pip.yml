@@ -20,49 +20,15 @@ jobs:
         python -V
         python -m pip install --upgrade pip
       
-    - name: Install system dependencies for Qt6
+    - name: Install aqtinstall
       run: |
-        sudo apt update
-        sudo apt install -y build-essential libxcb1-dev libx11-dev libxext-dev libxrender-dev \
-            libfreetype6-dev libfontconfig1-dev libssl-dev libglib2.0-dev \
-            libicu-dev libpng-dev libjpeg-dev libwebp-dev zlib1g-dev \
-            cmake git pkg-config clang-13 llvm-13 libclang-13-dev
-            
-    - name: Get Qt 6.7.3 source
-      run: |
-        wget -q https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz
-        tar -xvf qt-everywhere-src-6.7.3.tar.xz
-        cd qt-everywhere-src-6.7.3
-
-    - name: Create build directory
-      run: |
-        cd qt-everywhere-src-6.7.3
-        mkdir build
-        cd build
-
-    - name: Configure Qt build with CMake
-      run: |
-        cd qt-everywhere-src-6.7.3/build
-        cmake .. \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=/opt/qt-6.7.3 \
-          -DQT_BUILD_EXAMPLES=OFF \
-          -DQT_BUILD_TESTS=OFF
-          -DCMAKE_POLICY_DEFAULT_CMP0177=NEW
-
-    - name: Build Qt 6.7.3
-      run: |
-        cd qt-everywhere-src-6.7.3/build
-        make -j$(nproc)
+        python -m pip install --upgrade pip
+        pip install aqtinstall
 
     - name: Install Qt 6.7.3
       run: |
-        cd qt-everywhere-src-6.7.3/build
-        sudo make install
-
-    - name: Verify Qt installation
-      run: |
-        /opt/qt-6.7.3/bin/qmake --version
+        aqt install -p qt6 -v 6.7.3 -t linux-g++-64
+        qtbase/bin/qmake --version
 
     - name: Install Python dependencies
       run: |
