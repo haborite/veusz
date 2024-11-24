@@ -39,6 +39,9 @@ jobs:
 
     - name: Build extensions
       run: |
+        export PATH=$(pwd)/6.7.3/gcc_64/bin:$PATH
+        export QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
+        qmake --version
         python setup.py build_ext --inplace
   
     - name: Run tests
