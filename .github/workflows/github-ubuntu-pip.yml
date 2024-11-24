@@ -28,8 +28,8 @@ jobs:
     - name: Install Qt 6.7.3
       run: |
         aqt install-qt linux desktop 6.7.3 linux_gcc_64
-        $HOME/6.7.3/gcc_64/bin/qmake --version
-        echo "$HOME/Qt/6.7.3/gcc_64/bin" >> QMAKE_EXE
+        export QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
+        $(pwd)/6.7.3/gcc_64/bin/qmake --version
         
     - name: Install Python dependencies
       run: |
