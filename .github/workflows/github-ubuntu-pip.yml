@@ -27,8 +27,10 @@ jobs:
 
     - name: Install Qt 6.7.3
       run: |
-        aqt install -p qt6 -v 6.7.3 -t linux-g++-64
-        qtbase/bin/qmake --version
+        aqt list-qt linux desktop
+        aqt list-qt linux desktop --arch 6.7.3
+        aqt install-qt linux desktop 6.7.3 gcc_64
+        qmake --version
 
     - name: Install Python dependencies
       run: |
