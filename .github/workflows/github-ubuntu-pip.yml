@@ -26,7 +26,7 @@ jobs:
         sudo apt install -y build-essential libxcb1-dev libx11-dev libxext-dev libxrender-dev \
             libfreetype6-dev libfontconfig1-dev libssl-dev libglib2.0-dev \
             libicu-dev libpng-dev libjpeg-dev libwebp-dev zlib1g-dev \
-            cmake git pkg-config
+            cmake git pkg-config clang-13 llvm-13 libclang-13-dev
             
     - name: Get Qt 6.7.3 source
       run: |
@@ -48,6 +48,7 @@ jobs:
           -DCMAKE_INSTALL_PREFIX=/opt/qt-6.7.3 \
           -DQT_BUILD_EXAMPLES=OFF \
           -DQT_BUILD_TESTS=OFF
+          -DCMAKE_POLICY_DEFAULT_CMP0177=NEW
 
     - name: Build Qt 6.7.3
       run: |
