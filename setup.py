@@ -35,7 +35,9 @@ from setuptools.command.install import install as orig_install
 from install_data import install_data
 
 # setuptools extension for building SIP/PyQt modules
-from pyqt_setuptools import sip_build_ext
+from pyqt_setuptools import sip_build_ext as orig_sip_build_ext
+
+QMAKE_EXE = os.environ['QMAKE_EXE']
 
 class install(orig_install):
     user_options = orig_install.user_options + [
@@ -57,6 +59,11 @@ class install(orig_install):
         orig_install.initialize_options(self)
         self.veusz_resource_dir = None
         self.disable_install_examples = False
+
+class sip_build_ext(orig_sip_build_ext):
+    def run(self):
+        os.environ['QMAKE_EXE'] = QMAKE_EXE
+        super().run()
 
 # Pete Shinner's distutils data file fix... from distutils-sig
 #  data installer with improved intelligence over distutils
