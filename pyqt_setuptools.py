@@ -22,7 +22,6 @@ def find_on_path(names, mainname):
     """
     path = os.getenv('PATH', os.path.defpath)
     pathparts = path.split(os.path.pathsep)
-    print(pathparts)
     for cmd in names:
         resolved = shutil.which(cmd)
         if resolved:
@@ -65,7 +64,6 @@ class sip_build_ext(build_ext):
 
     def _get_qmake(self, build_cmd):
         """Get qmake executable."""
-        print(os.environ.get('QMAKE_EXE'))
         return (
             build_cmd.qmake_exe or
             os.environ.get('QMAKE_EXE') or
@@ -260,6 +258,7 @@ name="{modulename}"
 
 [tool.sip.project]
 sip-include-dirs=[{toml_esc(pyqt6_include_dir)}]
+abi-version="{abi_version}"
 build-dir={toml_esc(output_dir)}
 sip-module="PyQt6.sip"
 sip-files-dir={toml_esc(srcdir)}
@@ -277,7 +276,7 @@ protected-is-public=false
         build_cmd = shutil.which('sip-build')
         if not build_cmd:
             raise RuntimeError('Could not find sip-build command on PATH')
-        subprocess.check_call([build_cmd], cwd=sip_builddir)
+        subprocess.check_call([build_cmd, '--no-compile'], cwd=sip_builddir)
 
         # put sip header in correct location
         shutil.copyfile(
