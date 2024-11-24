@@ -258,7 +258,6 @@ name="{modulename}"
 
 [tool.sip.project]
 sip-include-dirs=[{toml_esc(pyqt6_include_dir)}]
-abi-version="{abi_version}"
 build-dir={toml_esc(output_dir)}
 sip-module="PyQt6.sip"
 sip-files-dir={toml_esc(srcdir)}
