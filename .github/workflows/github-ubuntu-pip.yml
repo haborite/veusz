@@ -30,7 +30,9 @@ jobs:
         aqt list-qt linux desktop
         aqt list-qt linux desktop --arch 6.7.3
         aqt install-qt linux desktop 6.7.3 linux_gcc_64
-
+        qtbase/bin/qmake --version
+        export QMAKE_EXE=qtbase/bin/qmake
+        
     - name: Install Python dependencies
       run: |
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
