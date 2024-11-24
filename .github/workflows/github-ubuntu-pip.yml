@@ -30,7 +30,7 @@ jobs:
             
     - name: Get Qt 6.7.3 source
       run: |
-        wget https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz
+        wget -q https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz
         tar -xvf qt-everywhere-src-6.7.3.tar.xz
         cd qt-everywhere-src-6.7.3
 
