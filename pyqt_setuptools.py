@@ -22,6 +22,7 @@ def find_on_path(names, mainname):
     """
     path = os.getenv('PATH', os.path.defpath)
     pathparts = path.split(os.path.pathsep)
+    print(pathparts)
     for cmd in names:
         resolved = shutil.which(cmd)
         if resolved:
@@ -64,6 +65,7 @@ class sip_build_ext(build_ext):
 
     def _get_qmake(self, build_cmd):
         """Get qmake executable."""
+        print(os.environ.get('QMAKE_EXE'))
         return (
             build_cmd.qmake_exe or
             os.environ.get('QMAKE_EXE') or
