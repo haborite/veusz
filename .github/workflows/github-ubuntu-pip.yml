@@ -10,10 +10,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.7
+    - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
-        python-version: '3.7'
+        python-version: '3.12'
 
     - name: Upgrade pip
       run : |
@@ -23,11 +23,45 @@ jobs:
     - name: Install system dependencies for Qt6
       run: |
         sudo apt update
-        sudo apt install -y \
-          build-essential qmake6 \
-          libxcb1-dev libx11-dev libxext-dev \
-          qt6-base-dev qt6-declarative-dev qt6-webengine-dev
-        dpkg -l | grep qt6
+        sudo apt install -y build-essential libxcb1-dev libx11-dev libxext-dev libxrender-dev \
+            libfreetype6-dev libfontconfig1-dev libssl-dev libglib2.0-dev \
+            libicu-dev libpng-dev libjpeg-dev libwebp-dev zlib1g-dev \
+            cmake git pkg-config
+            
+    - name: Get Qt 6.7.3 source
+      run: |
+        wget https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz
+        tar -xvf qt-everywhere-src-6.7.3.tar.xz
+        cd qt-everywhere-src-6.7.3
+
+    - name: Create build directory
+      run: |
+        cd qt-everywhere-src-6.7.3
+        mkdir build
+        cd build
+
+    - name: Configure Qt build with CMake
+      run: |
+        cd qt-everywhere-src-6.7.3/build
+        cmake .. \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=/opt/qt-6.7.3 \
+          -DQT_BUILD_EXAMPLES=OFF \
+          -DQT_BUILD_TESTS=OFF
+
+    - name: Build Qt 6.7.3
+      run: |
+        cd qt-everywhere-src-6.7.3/build
+        make -j$(nproc)
+
+    - name: Install Qt 6.7.3
+      run: |
+        cd qt-everywhere-src-6.7.3/build
+        sudo make install
+
+    - name: Verify Qt installation
+      run: |
+        /opt/qt-6.7.3/bin/qmake --version
 
     - name: Install Python dependencies
       run: |
