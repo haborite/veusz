@@ -29,7 +29,7 @@ jobs:
       run: |
         aqt list-qt linux desktop
         aqt list-qt linux desktop --arch 6.7.3
-        aqt install-qt linux desktop 6.7.3 gcc_64
+        aqt install-qt linux desktop 6.7.3 linux_gcc_64
         qmake --version
 
     - name: Install Python dependencies
