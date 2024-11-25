@@ -25,10 +25,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install aqtinstall
 
-    - name: Install Qt 6.7.3
+    - name: Install Qt
+      env:
+        QT_VER: 6.7.3
       run: |
-        aqt install-qt linux desktop 6.7.3 linux_gcc_64
-        QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
+        aqt install-qt linux desktop $QT_VER linux_gcc_64
+        QMAKE_EXE=$(pwd)/$QT_VER/gcc_64/bin/qmake
         echo "QMAKE_EXE=$QMAKE_EXE" >> $GITHUB_ENV
         QT_LIBRARY_DIR=$($QMAKE_EXE -query QT_INSTALL_LIBS)
         echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR" >> $GITHUB_ENV
