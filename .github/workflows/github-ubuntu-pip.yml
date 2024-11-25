@@ -37,7 +37,7 @@ jobs:
         echo "QMAKE_EXE=$QMAKE_EXE" >> $GITHUB_ENV
         echo "QT_INCLUDE_DIR=$QT_INCLUDE_DIR" >> $GITHUB_ENV
         echo "QT_LIBRARY_DIR=$QT_LIBRARY_DIR" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR" >> $GITHUB_ENV
         
     - name: Install Python dependencies
       run: |
