@@ -32,12 +32,12 @@ jobs:
         QMAKE_EXE=$QT_ROOT_DIR/bin/qmake
         QT_INCLUDE_DIR=$($QMAKE_EXE -query QT_INSTALL_HEADERS)
         QT_LIBRARY_DIR=$($QMAKE_EXE -query QT_INSTALL_LIBS)
-        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:QT_LIBRARY_DIR
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR
         echo "QT_ROOT_DIR=$QT_ROOT_DIR" >> $GITHUB_ENV
         echo "QMAKE_EXE=$QMAKE_EXE" >> $GITHUB_ENV
         echo "QT_INCLUDE_DIR=$QT_INCLUDE_DIR" >> $GITHUB_ENV
         echo "QT_LIBRARY_DIR=$QT_LIBRARY_DIR" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
         
     - name: Install Python dependencies
       run: |
