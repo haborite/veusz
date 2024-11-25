@@ -40,9 +40,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip list
         
-    # - name: Install system dependencies
-    #   run: |
-    #     sudo apt update
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libegl1
     #     sudo apt install -y build-essential libegl1 libxcb1-dev libx11-dev libxext-dev libxrender-dev
 
     - name: Build extensions
