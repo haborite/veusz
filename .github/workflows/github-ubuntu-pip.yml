@@ -52,8 +52,8 @@ jobs:
     - name: Build extensions
       env:
         QMAKE_EXE: ${{ env.QMAKE_EXE }}
-        QT_INCLUDE_DIR: ${{ env.QT_INCLUDE_DIR }}
-        QT_LIBRARY_DIR: ${{ env.QT_LIBRARY_DIR }}
+        # QT_INCLUDE_DIR: ${{ env.QT_INCLUDE_DIR }}
+        # QT_LIBRARY_DIR: ${{ env.QT_LIBRARY_DIR }}
       run: |
         python setup.py build_ext --inplace
   
