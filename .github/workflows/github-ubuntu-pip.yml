@@ -28,12 +28,10 @@ jobs:
     - name: Install Qt 6.7.3
       run: |
         aqt install-qt linux desktop 6.7.3 linux_gcc_64
-        QT_ROOT_DIR=$(pwd)/6.7.3/gcc_64
-        QMAKE_EXE=$QT_ROOT_DIR/bin/qmake
-        QT_LIBRARY_DIR=$($QMAKE_EXE -query QT_INSTALL_LIBS)
-        echo "QT_ROOT_DIR=$QT_ROOT_DIR" >> $GITHUB_ENV
+        QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
         echo "QMAKE_EXE=$QMAKE_EXE" >> $GITHUB_ENV
-        # echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR" >> $GITHUB_ENV
+        QT_LIBRARY_DIR=$($QMAKE_EXE -query QT_INSTALL_LIBS)
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QT_LIBRARY_DIR" >> $GITHUB_ENV
         
     - name: Install Python dependencies
       run: |
@@ -53,7 +51,7 @@ jobs:
   
     - name: Run tests
       env:
-        # LD_LIBRARY_PATH: ${{ env.QT_ROOT_DIR }}/lib:${{ env.LD_LIBRARY_PATH }}
+        LD_LIBRARY_PATH: ${{ env.LD_LIBRARY_PATH }}
         QT_QPA_PLATFORM: minimal
         VEUSZ_INPLACE_TEST: 1
       run: |
