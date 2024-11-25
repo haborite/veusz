@@ -28,6 +28,11 @@ jobs:
     - name: Install Qt 6.7.3
       run: |
         aqt install-qt linux desktop 6.7.3 linux_gcc_64
+        echo "QT_ROOT_DIR=$(pwd)/6.7.3/gcc_64" >> $GITHUB_ENV
+        echo "QMAKE_EXE=${{ env.QT_ROOT_DIR }}/bin/qmake" >> $GITHUB_ENV
+        echo "QT_INCLUDE_DIR=$(${{ env.QMAKE_EXE }} -query QT_INSTALL_HEADERS)" >> $GITHUB_ENV
+        echo "QT_LIBRARY_DIR=$(${{ env.QMAKE_EXE }} -query QT_INSTALL_LIBS)" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=${{ env.QMAKE_EXE }}:$LD_LIBRARY_PATH" >> $GITHUB_ENV
         
     - name: Install Python dependencies
       run: |
@@ -40,11 +45,11 @@ jobs:
         sudo apt install -y build-essential libegl1 libxcb1-dev libx11-dev libxext-dev libxrender-dev
 
     - name: Build extensions
+      env:
+        QMAKE_EXE: ${{ env.QMAKE_EXE }}
+        QT_INCLUDE_DIR: ${{ env.QT_INCLUDE_DIR }}
+        QT_LIBRARY_DIR: ${{ env.QT_LIBRARY_DIR }}
       run: |
-        export QMAKE_EXE=$(pwd)/6.7.3/gcc_64/bin/qmake
-        qmake --version
-        export QT_INCLUDE_DIR=$(qmake -query QT_INSTALL_HEADERS)
-        export QT_LIBRARY_DIR=$(qmake -query QT_INSTALL_LIBS)
         python setup.py build_ext --inplace
   
     - name: Run tests
