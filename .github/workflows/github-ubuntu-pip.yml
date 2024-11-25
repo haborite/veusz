@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     
     - name: Checkout code
@@ -44,7 +44,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y libegl1
-    #     sudo apt install -y build-essential libegl1 libxcb1-dev libx11-dev libxext-dev libxrender-dev
 
     - name: Build extensions
       env:
